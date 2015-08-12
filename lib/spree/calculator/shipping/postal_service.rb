@@ -49,9 +49,8 @@ module Spree
         # As order_or_line_items we always get line items, as calculable we have
         # Coupon, ShippingMethod or ShippingRate.
         def compute(package)
-          @line_items ||= package.order.line_items
-          total_price  = compute_total_price
-          total_weight = compute_total_weight
+          total_price  = total(package.contents)
+          total_weight = compute_total_weight(package.contents)
           shipping     = 0
 
           return 0.0 if total_price > preferred_max_price
@@ -66,15 +65,11 @@ module Spree
 
         private
 
-        def compute_total_weight
-          line_items.map do |item|
+        def compute_total_weight(contents)
+          contents.map do |item|
             weight = item.variant.weight > 0 ? item.variant.weight : preferred_default_weight
             item.quantity * weight
           end.reduce(:+)
-        end
-
-        def compute_total_price
-          line_items.map { |item| item.price * item.quantity }.reduce(:+)
         end
 
         def compute_index(total_weight)
