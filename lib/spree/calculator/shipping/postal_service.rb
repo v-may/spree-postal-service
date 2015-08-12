@@ -39,7 +39,7 @@ module Spree
 
         # Determine if weight or size goes over bounds.
         def available?(package)
-          package.order.variants.each do |variant|
+          package.contents.map(&:variant).each do |variant|
             return false if item_within_bounds?(variant.weight) # 18
             return false if item_oversized?(variant)
           end
