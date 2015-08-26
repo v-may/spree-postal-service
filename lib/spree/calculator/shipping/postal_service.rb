@@ -53,7 +53,7 @@ module Spree
           total_weight = compute_total_weight(package.contents)
           shipping     = 0
 
-          return 0.0 if total_price > preferred_max_price
+          return 0.0 if !preferred_max_price.zero? && total_price > preferred_max_price
 
           while total_weight > weights.last # In several packages if need be.
             total_weight -= weights.last
