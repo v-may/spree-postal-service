@@ -49,7 +49,7 @@ module Spree
         # As order_or_line_items we always get line items, as calculable we have
         # Coupon, ShippingMethod or ShippingRate.
         def compute(package)
-          total_price  = total(package.contents)
+          total_price  = package.to_shipment.item_cost
           total_weight = compute_total_weight(package.contents)
           shipping     = 0
 
