@@ -67,7 +67,7 @@ module Spree
 
         def compute_total_weight(contents)
           contents.map do |item|
-            weight = item.variant.weight > 0 ? item.variant.weight : preferred_default_weight
+            weight = item.variant.weight && item.variant.weight > 0 ? item.variant.weight : preferred_default_weight
             item.quantity * weight
           end.reduce(:+)
         end
