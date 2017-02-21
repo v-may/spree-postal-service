@@ -11,4 +11,4 @@ en:
     handling_max: "Amount, over which handling fee won't be applied"
     min_price: Minimum price
     default_weight: Default weight
-    max_price: Maximum price
+    max_price: Max total of the shipment
